@@ -11,10 +11,15 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+
 find_package(QT NAMES Qt5 COMPONENTS Widgets Network REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Network REQUIRED)
 
+find_package(QtZeroConf REQUIRED)
+
 set(PROJECT_SOURCES
+  debug.h
   main.cpp
   mainwindow.cpp
   mainwindow.h
@@ -31,6 +36,11 @@ add_executable(Airceiver
 target_link_libraries(Airceiver PRIVATE
   Qt${QT_VERSION_MAJOR}::Network
   Qt${QT_VERSION_MAJOR}::Widgets
+  ${QTZEROCONF_LIBRARIES}
+)
+
+target_include_directories(Airceiver PRIVATE
+  ${QTZEROCONF_INCLUDE_DIRS}
 )
 
 set_target_properties(Airceiver PROPERTIES

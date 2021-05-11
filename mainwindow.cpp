@@ -23,7 +23,7 @@ void MainWindow::showEvent(QShowEvent *event)
   if (m_first_show) {
     Server *server = new Server(this);
     if (!server->Init()) {
-      QtUtils::MessageBox(this, tr("Failed to initialize server"), tr("Failed to initialize server on port %1.").arg(Server::kServerPort));
+      QtUtils::MessageBox(this, tr("Failed to initialize server"), server->GetError());
     }
 
     m_first_show = false;
